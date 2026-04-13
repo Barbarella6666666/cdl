@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class TabooTubeCrawler(KernelVideoSharingCrawler):
-    SUPPORTED_PATHS: ClassVar[SupportedPaths] = { "Video": "/video/..." }
+    SUPPORTED_PATHS: ClassVar[SupportedPaths] = {"Video": "/video/..."}
     PRIMARY_URL: ClassVar[AbsoluteHttpURL] = AbsoluteHttpURL("https://www.tabootube.xxx")
     DOMAIN: ClassVar[str] = "tabootube"
     FOLDER_DOMAIN: ClassVar[str] = "TabooTube"
