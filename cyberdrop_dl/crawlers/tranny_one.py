@@ -37,9 +37,6 @@ class TrannyOneCrawler(Crawler):
     _RATE_LIMIT = 3, 10
 
     async def fetch(self, scrape_item: ScrapeItem) -> None:
-        if self.is_subdomain(scrape_item.url):
-            return await self.direct_file(scrape_item)
-
         match scrape_item.url.parts[1:]:
             case ["view", video_id]:
                 return await self.video(scrape_item, video_id)
