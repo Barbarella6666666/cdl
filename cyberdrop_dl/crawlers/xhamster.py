@@ -217,12 +217,21 @@ class XhamsterCrawler(Crawler):
             video_codec=video.best_mp4.codec.name.lower(),
             resolution=video.best_mp4.resolution,
         )
+        filename = video.id + ".mp4"
+        media_kwargs = {}
+
+        if video.best_hls is not None:
+            playlist, _ = await self.request_m3u8_playlist(video.best_hls.url)
+            media_kwargs["m3u8"] = playlist
+        else:
+            media_kwargs["debrid_link"] = video.best_mp4.url
+
         await self.handle_file(
             scrape_item.url,
             scrape_item,
-            filename=video.id + ".mp4",
+            filename,
             custom_filename=custom_filename,
-            debrid_link=video.best_mp4.url,
+            **media_kwargs,
         )
 
     async def _get_window_initials(self, url: AbsoluteHttpURL) -> dict[str, Any]:
@@ -275,8 +284,13 @@ def _parse_video(initials: dict[str, Any]) -> Video:
     )
 
 
+def _get_xplayer_sources(initials: dict[str, Any]) -> dict[str, Any]:
+    settings = initials.get("xplayerSettings2") or initials.get("xplayerSettings", {})
+    return settings.get("sources", {}) or {}
+
+
 def _parse_xplayer_sources(initials: dict[str, Any]) -> Iterable[Format]:
-    xplayer_sources: dict[str, Any] = initials.get("xplayerSettings2", {}).get("sources", {})
+    xplayer_sources = _get_xplayer_sources(initials)
     if not xplayer_sources:
         return
 
