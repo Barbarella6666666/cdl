@@ -69,6 +69,19 @@ TEST_CASES = [
         range(50, 70),
     ),
     (
+        "https://xhamster45.desi/videos/eating-her-ass-xhdR056",
+        [
+            {
+                "url": "https://xhamster45.desi/videos/eating-her-ass-xhdR056",
+                "filename": "Eating her ass [xhdR056][h264][720p].mp4",
+                "original_filename": "xhdR056.mp4",
+                "referer": "https://xhamster45.desi/videos/eating-her-ass-xhdR056",
+                "album_id": None,
+                "datetime": 1764724818,
+            }
+        ],
+    ),
+    (
         "https://xhamster.com/creators/danielagomezz/exclusive",
         [],
         range(50, 70),
